@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMCD Antidetect - Trình duyệt ẩn danh cá nhân</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --accent-color: #f59e0b; /* Màu cam vàng */
+            --secondary-text: #94a3b8;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            background-image: linear-gradient(to bottom, #0f172a, #1e293b);
+            color: var(--text-color);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* --- LOGO & HEADER --- */
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .project-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.2));
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--secondary-text);
+            font-weight: 400;
+        }
+
+        /* --- SCREENSHOT AREA (Chỗ để ảnh giao diện) --- */
+        .preview-container {
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 50px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5);
+            background: #1e293b;
+            position: relative;
+        }
+
+        /* Khi chưa có ảnh thì hiện khung này */
+        .placeholder-image {
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255,255,255,0.03),
+                rgba(255,255,255,0.03) 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            color: var(--secondary-text);
+        }
+
+        /* Khi CÓ ảnh thật thì dùng class này */
+        .app-screenshot {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* --- DESCRIPTION --- */
+        .features-section {
+            max-width: 700px;
+            text-align: left;
+            margin-bottom: 50px;
+        }
+
+        .features-section h2 {
+            font-size: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+
+        .features-section p {
+            line-height: 1.7;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 10px;
+        }
+
+        .feature-list li {
+            padding-left: 25px;
+            position: relative;
+            color: var(--secondary-text);
+        }
+
+        .feature-list li::before {
+            content: "\f00c"; /* Icon check */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
+        /* --- DOWNLOAD SECTION --- */
+        .download-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+
+        .version-info {
+            font-family: monospace;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        /* Style cho nút CHƯA tải được */
+        .btn-disabled {
+            background: #334155;
+            color: #94a3b8;
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        /* Style cho nút KHI NÀO tải được (dùng sau này) */
+        .btn-active {
+            background: var(--accent-color);
+            color: #000;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+        }
+        .btn-active:hover {
+            transform: translateY(-2px);
+            background: #fbbf24;
+        }
+
+        .note {
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+        }
+
+        /* Footer */
+        .footer-nav {
+            margin-top: auto;
+            display: flex;
+            gap: 20px;
+        }
+        .footer-nav a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .footer-nav a:hover {
+            color: #fff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-section">
+        <img src="Logo-SMCD-Nen.png" alt="SMCD Logo" class="project-logo">
+        <h1>SMCD Antidetect Browser</h1>
+        <p class="subtitle">Trình duyệt ẩn danh cá nhân cho Windows.</p>
+    </div>
+
+    <div class="preview-container">
+        <div class="placeholder-image">
+            <i class="fa-solid fa-image" style="font-size: 40px; margin-bottom: 15px; opacity: 0.5;"></i>
+            <span>Giao diện phần mềm sẽ được cập nhật sớm</span>
+        </div>
+    </div>
+
+    <div class="features-section">
+        <h2>Giới thiệu</h2>
+        <p>
+            SMCD Antidetect Browser là giải pháp trình duyệt ẩn danh được phát triển cho nhu cầu cá nhân. 
+            Công cụ giúp bạn quản lý nhiều tài khoản trên cùng một thiết bị Windows mà không lo bị phát hiện hoặc trùng lặp dấu vân tay trình duyệt (browser fingerprint).
+        </p>
+        <p>
+            Điểm khác biệt lớn nhất: Đây là công cụ <strong>Offline</strong>.
+        </p>
+        
+        <ul class="feature-list">
+            <li>Dữ liệu lưu trữ cục bộ (Local) trên máy tính của bạn.</li>
+            <li>Không gửi dữ liệu về Server, đảm bảo riêng tư tuyệt đối.</li>
+            <li>Quản lý Profile không giới hạn (tùy thuộc cấu hình máy).</li>
+            <li>Hoàn toàn miễn phí cho cộng đồng.</li>
+        </ul>
+    </div>
+
+    <div class="download-box">
+        <span class="version-info">Phiên bản hiện tại: Đang phát triển</span>
+        
+        <a href="#" class="btn-download btn-disabled" onclick="return false;">
+            <i class="fa-brands fa-windows"></i>
+            Download for Windows (Coming Soon)
+        </a>
+
+        <p class="note">
+            <i class="fa-solid fa-clock"></i> Dự kiến ra mắt: 2026<br><br>
+            Bấm Star trên GitHub để nhận thông báo khi phát hành.
+        </p>
+    </div>
+
+    <div class="footer-nav">
+        <a href="https://songmaucodai.online"><i class="fa-solid fa-arrow-left"></i> Về trang chủ</a>
+        <a href="https://github.com/songmaucodai" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+    </div>
+
+</body>
+</html>
