@@ -1,8 +1,8 @@
 <div align="center">
 
-  <img src="Logo-app.png" alt="SMCD Antidetect Logo" width="120" height="120">
+  <img src="Logo-app.png" alt="SMCD AntiDetect Logo" width="120" height="120">
 
-  # SMCD Antidetect Browser
+  # SMCD AntiDetect Browser
 
   **Trình duyệt ẩn danh cá nhân cho Windows**
   
@@ -20,7 +20,7 @@
 
 ## Giới thiệu
 
-**SMCD Antidetect** là giải pháp trình duyệt ẩn danh được phát triển cho nhu cầu cá nhân. Công cụ giúp bạn quản lý nhiều tài khoản trên cùng một thiết bị Windows mà không lo bị phát hiện hoặc trùng lặp dấu vân tay trình duyệt (browser fingerprint).
+**SMCD AntiDetect** là giải pháp trình duyệt ẩn danh được phát triển cho nhu cầu cá nhân. Công cụ giúp bạn quản lý nhiều tài khoản trên cùng một thiết bị Windows mà không lo bị phát hiện hoặc trùng lặp dấu vân tay trình duyệt (browser fingerprint).
 
 ### Điểm nổi bật
 
